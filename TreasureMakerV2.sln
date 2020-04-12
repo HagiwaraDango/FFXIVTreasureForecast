@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureMakerV2", "TreasureMakerV2.csproj", "{AFFED782-798B-4D98-9B4F-9DBBE3A022F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFFED782-798B-4D98-9B4F-9DBBE3A022F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFED782-798B-4D98-9B4F-9DBBE3A022F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFED782-798B-4D98-9B4F-9DBBE3A022F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFED782-798B-4D98-9B4F-9DBBE3A022F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {787BFEF9-3AE2-4232-914F-0ABF78589062}
+	EndGlobalSection
+EndGlobal
