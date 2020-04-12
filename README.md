@@ -1,0 +1,2 @@
+# FFXIVTreasureForecast
+TreasureForecast
