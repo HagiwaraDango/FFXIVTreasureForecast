@@ -12,9 +12,10 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
+
 
 namespace TreasureMakerV2.ViewModel
 {
@@ -42,14 +43,14 @@ namespace TreasureMakerV2.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<TreasureMainViewModel>();
         }
 
-        public MainViewModel Main
+        public TreasureMainViewModel TreasureMain
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<TreasureMainViewModel>();
             }
         }
         

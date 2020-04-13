@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons8-treasure-map-80.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
@@ -100,7 +103,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Enum\FFXIVEnum.cs" />
+    <Compile Include="Model\TreasureMapModel.cs" />
+    <Compile Include="ViewModel\TreasureMainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\TreasureMainView.xaml.cs">
       <DependentUpon>TreasureMainView.xaml</DependentUpon>
@@ -150,7 +155,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Resource Include="icons8-treasure-map-80.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

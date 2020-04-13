@@ -5,8 +5,648 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TreasureMakerV2.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Height="Auto"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FontSize="14"
+    FontWeight="Bold"
     mc:Ignorable="d">
-    <Grid />
+    <UserControl.Resources>
+
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <Grid>
+                                <Ellipse
+                                    x:Name="PathIcon"
+                                    Width="25"
+                                    Height="25"
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Fill="#4C87B3"
+                                    Stretch="Fill" />
+                                <ContentPresenter
+                                    x:Name="MyContentPresenter"
+                                    Margin="20,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E59400" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter TargetName="PathIcon" Property="Fill" Value="Black" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <BulletDecorator Margin="-5">
+                            <BulletDecorator.Bullet>
+                                <Grid Margin="1,5,-23,-27">
+                                    <Ellipse
+                                        Name="EllipseMain"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="3"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="3"
+                                        Fill="Transparent"
+                                        Stroke="LightGray"
+                                        StrokeThickness="2" />
+                                    <Ellipse
+                                        Name="CheckMark"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Width="Auto"
+                                        Margin="6"
+                                        Fill="#FF4EB3EE"
+                                        Opacity="1" />
+                                </Grid>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter
+                                Width="400"
+                                Margin="13,7,0,7"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="CheckMark"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="6"
+                                                Duration="0:0:0.3" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="EllipseMain"
+                                                Storyboard.TargetProperty="(Ellipse.Stroke).(SolidColorBrush.Color)"
+                                                To="#FF4EB3EE"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="CheckMark"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="6"
+                                                Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked">
+                                        <Storyboard>
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="CheckMark"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="11"
+                                                Duration="0:0:0.2" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="EllipseMain"
+                                                Storyboard.TargetProperty="(Ellipse.Stroke).(SolidColorBrush.Color)"
+                                                To="LightGray"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard>
+                                            <ThicknessAnimation
+                                                Storyboard.TargetName="CheckMark"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="6"
+                                                Duration="0:0:0.3" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="EllipseMain"
+                                                Storyboard.TargetProperty="(Ellipse.Stroke).(SolidColorBrush.Color)"
+                                                To="#FF4EB3EE"
+                                                Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="EllipseMain" Property="Stroke" Value="#FF4EB3EE" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter TargetName="EllipseMain" Property="Stroke" Value="#FF4EB3EE" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <LinearGradientBrush x:Key="CheckedBlue" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#FF285AB3" />
+            <GradientStop Offset="0.5" Color="#FF4184EC" />
+            <GradientStop Offset="0.5" Color="#FF558BED" />
+            <GradientStop Offset="1" Color="#FF7DACF0" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="CheckedOrange" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#FFCA6A13" />
+            <GradientStop Offset="0.2" Color="#FFF67D0C" />
+            <GradientStop Offset="0.2" Color="#FFFE7F0C" />
+            <GradientStop Offset="0.5" Color="#FFFA8E12" />
+            <GradientStop Offset="0.5" Color="#FFFF981D" />
+            <GradientStop Offset="1" Color="#FFFCBC5A" />
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="CheckedOrangeBorder" Color="#FF8E4A1B" />
+        <SolidColorBrush x:Key="CheckedBlueBorder" Color="#FF143874" />
+        <Style x:Key="OrangeSwitchStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="OnChecking">
+                                <DoubleAnimationUsingKeyFrames
+                                    BeginTime="00:00:00"
+                                    Storyboard.TargetName="slider"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="53" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="OnUnchecking">
+                                <DoubleAnimationUsingKeyFrames
+                                    BeginTime="00:00:00"
+                                    Storyboard.TargetName="slider"
+                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <DockPanel x:Name="dockPanel">
+                            <ContentPresenter
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Grid>
+                                <Border
+                                    x:Name="BackgroundBorder"
+                                    Width="94"
+                                    Height="27"
+                                    BorderBrush="#FF939393"
+                                    BorderThickness="1"
+                                    CornerRadius="3">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="#FFB5B5B5" />
+                                            <GradientStop Offset="0.1" Color="#FFDEDEDE" />
+                                            <GradientStop Offset="0.5" Color="#FFEEEEEE" />
+                                            <GradientStop Offset="0.5" Color="#FFFAFAFA" />
+                                            <GradientStop Offset="1" Color="#FFFEFEFE" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            x:Name="Off"
+                                            Grid.Column="1"
+                                            Width="14"
+                                            Height="14"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Stroke="#FF7A7A7A"
+                                            StrokeThickness="2" />
+                                        <Line
+                                            x:Name="On"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Stroke="#FF7A7A7A"
+                                            StrokeThickness="2"
+                                            X1="0"
+                                            X2="0"
+                                            Y1="0"
+                                            Y2="14" />
+                                    </Grid>
+                                </Border>
+                                <Border
+                                    x:Name="slider"
+                                    Width="41"
+                                    Height="27"
+                                    Margin="0"
+                                    HorizontalAlignment="Left"
+                                    BorderBrush="#FF939393"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    RenderTransformOrigin="0.5,0.5">
+
+                                    <Border.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            <SkewTransform AngleX="0" AngleY="0" />
+                                            <RotateTransform Angle="0" />
+                                            <TranslateTransform X="0" Y="0" />
+                                        </TransformGroup>
+                                    </Border.RenderTransform>
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="#FFF0F0F0" />
+                                            <GradientStop Offset="0.1" Color="#FFCDCDCD" />
+                                            <GradientStop Offset="1" Color="#FFFBFBFB" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="OnUnchecking_BeginStoryboard" Storyboard="{StaticResource OnUnchecking}" />
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="OnChecking_BeginStoryboard" Storyboard="{StaticResource OnChecking}" />
+                                </Trigger.EnterActions>
+                                <Setter TargetName="On" Property="Stroke" Value="White" />
+                                <Setter TargetName="Off" Property="Stroke" Value="White" />
+
+                                <!--  Change Orange or Blue color here  -->
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource CheckedBlue}" />
+                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource CheckedOrangeBorder}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <!--  ToDo: Add Style for Isenabled == False  -->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MetroButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
+            <Setter Property="Background" Value="#EEEEEEEE" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border
+                                x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="OpacityMask" Value="#AA888888" />
+                                <Setter Property="Margin" Value="2,1" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <!--<Setter Property="Background" Value="DimGray"/>-->
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#ADADAD" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="TreasureMain" Source="{StaticResource Locator}" />
+    </UserControl.DataContext>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24" />
+                <RowDefinition Height="60" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                BorderBrush="#7B68EE"
+                BorderThickness="0,0,0,2">
+                <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                    <TextBlock Width="80" Text="当前层数：" />
+                    <TextBlock Width="110" Text="{Binding TreasureMapProperty.Value.NowFloor, StringFormat=第{0}层}" />
+                    <TextBlock Width="50" Text="消息：" />
+                    <TextBlock
+                        Width="145"
+                        Foreground="DarkViolet"
+                        Text="异常发生中"
+                        Visibility="{Binding TreasureMapProperty.Value.IsInvert, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <TextBlock
+                        Foreground="BlueViolet"
+                        Text="{Binding InvertTimeProperty.Value, StringFormat=异常已经过：{0}}"
+                        Visibility="{Binding TreasureMapProperty.Value.IsInvert, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label
+                    Margin="10,00,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="怪物群类型："
+                    FontSize="14" />
+                <StackPanel VerticalAlignment="Center">
+                    <RadioButton
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Command="{Binding CheckButtonCommand}"
+                        CommandParameter="0"
+                        IsChecked="{Binding SelectedMonsterProperty.Value}"
+                        Style="{StaticResource RadioButtonStyle}">
+                        <RadioButton.Content>
+                            <TextBlock
+                                x:Name="Monster1Text"
+                                Text="{Binding MonsterNameOneProperty.Value}"
+                                TextTrimming="CharacterEllipsis" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="Monster2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Command="{Binding CheckButtonCommand}"
+                        CommandParameter="1"
+                        Style="{StaticResource RadioButtonStyle}">
+                        <RadioButton.Content>
+                            <TextBlock
+                                x:Name="Monster2Text"
+                                Text="{Binding MonsterNameTwoProperty.Value}"
+                                TextTrimming="CharacterEllipsis" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                </StackPanel>
+            </StackPanel>
+
+            <UniformGrid
+                Grid.Row="2"
+                Height="120"
+                Columns="3"
+                Rows="3">
+
+                <CheckBox
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding InvertResultCommand}"
+                    Content="异常现象："
+                    Foreground="OrangeRed"
+                    IsChecked="{Binding TreasureMapProperty.Value.IsInvert, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+                <CheckBox
+                    x:Name="IsBloom"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding CheckButtonCommand}"
+                    Content="存在发光门："
+                    Foreground="DodgerBlue"
+                    IsChecked="{Binding TreasureMapProperty.Value.IsBloom, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+                <CheckBox
+                    x:Name="HaveTrap"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding CheckButtonCommand}"
+                    Content="强欲陷阱："
+                    IsChecked="{Binding TreasureMapProperty.Value.HaveTrap, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+
+                <CheckBox
+                    x:Name="HaveMandra"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding CheckButtonCommand}"
+                    Content="曼德拉战队："
+                    IsChecked="{Binding TreasureMapProperty.Value.HaveMandra, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+                <CheckBox
+                    x:Name="HaveDoorKeeper"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding CheckButtonCommand}"
+                    Content="宝库守护者："
+                    IsChecked="{Binding TreasureMapProperty.Value.HaveDoorKeeper, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+                <CheckBox
+                    x:Name="HaveWaterWitcher"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding CheckButtonCommand}"
+                    Content="水妖魔术师："
+                    IsChecked="{Binding TreasureMapProperty.Value.HaveWaterWitcher, Mode=TwoWay}"
+                    Style="{StaticResource OrangeSwitchStyle}" />
+
+
+                <Button
+                    Height="34"
+                    Command="{Binding ResetFloorCommand}"
+                    Content="预测错误,重置副本"
+                    Style="{StaticResource ButtonStyle}" />
+
+                <Border
+                    Width="140"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="Wheat"
+                    CornerRadius="3">
+                    <TextBlock
+                        x:Name="CorrectDoor"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="Black"
+                        Text="{Binding CorrectDoorTextProperty.Value, StringFormat=猜测：{0}的门}" />
+                </Border>
+
+                <Button
+                    Height="34"
+                    Command="{Binding NextFloorCommand}"
+                    Style="{StaticResource ButtonStyle}">
+                    <Button.Content>
+                        <TextBlock Text="{Binding NextFloorProperty.Value, StringFormat=预测正确，前往{0}层}" />
+                    </Button.Content>
+                </Button>
+            </UniformGrid>
+
+        </Grid>
+        <Border
+            Grid.Row="1"
+            BorderBrush="#7B68EE"
+            BorderThickness="0,0,0,2">
+            <DockPanel>
+                <TextBlock VerticalAlignment="Center" Text="历史记录位置" />
+                <Border
+                    Width="340"
+                    Height="20"
+                    Margin="20,0,20,0"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1">
+                    <TextBlock VerticalAlignment="Center" Text="{Binding HistoryPathProperty.Value}" />
+                </Border>
+                <Button
+                    Width="80"
+                    Height="20"
+                    Command="{Binding OpenFileCommand}"
+                    Content="选择记录文件"
+                    FontSize="12" />
+            </DockPanel>
+
+        </Border>
+        <StackPanel Grid.Row="2">
+            <Expander Header="历史记录" IsExpanded="True">
+                <DataGrid
+                    x:Name="HistoryDataGrid"
+                    Height="150"
+                    AutoGenerateColumns="False"
+                    BorderThickness="2"
+                    HeadersVisibility="Column"
+                    ItemsSource="{Binding TreasureHistoryCollection}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="134"
+                            Binding="{Binding Time, StringFormat='MM月dd日HH时mm分'}"
+                            Header="时间"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="40"
+                            Binding="{Binding NowFloor}"
+                            Header="层数"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="88"
+                            Binding="{Binding MonsterType}"
+                            Header="怪物"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding IsBloom}"
+                            Header="发光"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding HaveMandra}"
+                            Header="曼德拉"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding HaveDoorKeeper}"
+                            Header="宝库"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding HaveWaterWitcher}"
+                            Header="水妖"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding HaveTrap}"
+                            Header="强欲"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="38"
+                            Binding="{Binding IsInvert}"
+                            Header="异常"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="38"
+                            Binding="{Binding FakeDoor}"
+                            Header="预测"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="38"
+                            Binding="{Binding RealDoor}"
+                            Header="实际"
+                            IsReadOnly="True" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Expander>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="4">
+            <TextBlock
+                Margin="2,0,0,0"
+                FontSize="12"
+                Text="数据来源：" />
+            <TextBox
+                Background="Transparent"
+                BorderThickness="0"
+                FontSize="12"
+                IsReadOnly="True"
+                Text="NGA论坛：https://ngabbs.com/read.php?tid=20130701" />
+        </StackPanel>
+    </Grid>
 </UserControl>
